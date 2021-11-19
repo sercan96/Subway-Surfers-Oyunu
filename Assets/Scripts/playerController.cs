@@ -12,12 +12,17 @@ public class playerController : MonoBehaviour
     float ziplamahizi = 4f;
     Rigidbody rigi;
     Animator anim;
+    Transform yol_1;
+    Transform yol_2;
 
 
     private void Start()
     {
         rigi = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+
+        yol_1 = GameObject.Find("yol_1").transform;
+        yol_2 = GameObject.Find("yol_2").transform;
     }
     private void OnCollisionStay(Collision collision)  //Çarpýþma devam ediyorken
     {
@@ -81,6 +86,17 @@ public class playerController : MonoBehaviour
            
         }
    
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.name =="yol_1")
+        {
+            yol_2.position = new Vector3(yol_2.position.x, yol_2.position.y, yol_1.position.z + 10.0f);
+        }
+        if (other.gameObject.name == "yol_2")
+        {
+            yol_1.position = new Vector3(yol_1.position.x, yol_1.position.y, yol_2.position.z + 10.0f);
+        }
     }
 
 
