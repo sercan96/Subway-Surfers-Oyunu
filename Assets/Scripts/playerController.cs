@@ -14,6 +14,8 @@ public class playerController : MonoBehaviour
     Animator anim;
     Transform yol_1;
     Transform yol_2;
+    GameController gameC;
+    public bool miknatis_alindi = false;
 
 
     private void Start()
@@ -23,6 +25,8 @@ public class playerController : MonoBehaviour
 
         yol_1 = GameObject.Find("yol_1").transform;
         yol_2 = GameObject.Find("yol_2").transform;
+
+        gameC = GameObject.Find("_Script").GetComponent<GameController>();
     }
     private void OnCollisionStay(Collision collision)  //Çarpýþma devam ediyorken
     {
@@ -97,7 +101,28 @@ public class playerController : MonoBehaviour
         {
             yol_1.position = new Vector3(yol_1.position.x, yol_1.position.y, yol_2.position.z + 10.0f);
         }
+
+        if(other.gameObject.CompareTag("Altin"))
+        {
+            other.gameObject.SetActive(false);
+            gameC.puanArttir();
+            
+        }
+        if(other.gameObject.tag == "Miknatis")
+        {
+            other.gameObject.SetActive(false);
+            miknatis_alindi = true;
+
+            Invoke("miknatis_iptal", 10.0f);  // 10 saniye sonra bu fonksiyonu çalýþtýr.
+        }
+        
     }
+    public void miknatis_iptal()
+    {
+        miknatis_alindi = false;
+    }
+        
+        
 
 
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -15,6 +16,12 @@ public class GameController : MonoBehaviour
     List<GameObject> digerleri; // Diðer objeler rastgelebu listeden çýkacak.
 
     Transform cocuk;
+
+    int altinPuan;
+    public Text altinpuanText;
+
+    playerController playerC;
+
 
     private void Start()
     {
@@ -32,6 +39,8 @@ public class GameController : MonoBehaviour
 
         InvokeRepeating("altin_uret", 0.0f, 1.0f); // 1-Hangi fonksiyon, 2- Ne zaman çalýþacak,3- Kaç saniyede bir çalýþacak.
         InvokeRepeating("engel_uret", 1f, 3f);
+
+        playerC = GameObject.Find("cocuk").GetComponent<playerController>();
 
 
     }
@@ -51,6 +60,13 @@ public class GameController : MonoBehaviour
             else
             {
                 digerleri[rast].transform.position = new Vector3(0.55f, 0f, cocuk.position.z + 10f);
+            }
+            if(digerleri[rast].tag == "Miknatis")
+            {
+                if(playerC.miknatis_alindi== true)
+                {
+                    miknatis.gameObject.SetActive(false);
+                }
             }
 
             return;
@@ -72,6 +88,15 @@ public class GameController : MonoBehaviour
                     {
                         nesne.transform.position = new Vector3(0.55f, 0f, cocuk.position.z + 10f);
                     }
+                    if (nesne.tag == "Miknatis")
+                    {
+                        if (playerC.miknatis_alindi == true)
+                        {
+                            miknatis.gameObject.SetActive(false);
+                            
+                        }
+                    }
+
 
                     return;
                 }
@@ -119,6 +144,11 @@ public class GameController : MonoBehaviour
             yeni_nesne.SetActive(false); // Bunu yapmamýzýn sebebi hepsinin görünür olmasýný engellemek.
             liste.Add(yeni_nesne);
         }
+    }
+    public void puanArttir()
+    {
+        altinPuan += 10;
+        altinpuanText.text = "Puan : " + altinPuan;
     }
 }
 
