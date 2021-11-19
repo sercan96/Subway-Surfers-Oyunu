@@ -19,7 +19,7 @@ public class Donme : MonoBehaviour
         }
         if (gameObject.tag == "Miknatis")
         {
-            transform.Rotate(1*Time.deltaTime *400f, 0, 0);
+            transform.Rotate(0, 1 * Time.deltaTime * 400f, 0);
         }
     }
 }

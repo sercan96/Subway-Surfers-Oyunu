@@ -46,11 +46,11 @@ public class GameController : MonoBehaviour
             int rastgele = Random.Range(0, 2);
             if (rastgele == 0)
             {
-                digerleri[rast].transform.position = new Vector3(-2f, 0f, cocuk.position.z + 10f);  // z ekseni cocuðun ilerlediði taraf olduðu için altýn her zaman ilerisinde olmasý gerekir.
+                digerleri[rast].transform.position = new Vector3(-1.97f, 0f, cocuk.position.z + 10f);  // z ekseni cocuðun ilerlediði taraf olduðu için altýn her zaman ilerisinde olmasý gerekir.
             }
             else
             {
-                digerleri[rast].transform.position = new Vector3(1.19f, 0f, cocuk.position.z + 10f);
+                digerleri[rast].transform.position = new Vector3(0.55f, 0f, cocuk.position.z + 10f);
             }
 
             return;
@@ -66,11 +66,11 @@ public class GameController : MonoBehaviour
                     int rastgele = Random.Range(0, 2);
                     if (rastgele == 0)
                     {
-                        nesne.transform.position = new Vector3(-2f, 0f, cocuk.position.z + 10f);  // z ekseni cocuðun ilerlediði taraf olduðu için altýn her zaman ilerisinde olmasý gerekir.
+                        nesne.transform.position = new Vector3(-1.97f, 0f, cocuk.position.z + 10f);  // z ekseni cocuðun ilerlediði taraf olduðu için altýn her zaman ilerisinde olmasý gerekir.
                     }
                     else
                     {
-                        nesne.transform.position = new Vector3(1.19f, 0f, cocuk.position.z + 10f);
+                        nesne.transform.position = new Vector3(0.55f, 0f, cocuk.position.z + 10f);
                     }
 
                     return;
