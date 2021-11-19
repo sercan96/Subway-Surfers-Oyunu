@@ -9,13 +9,15 @@ public class playerController : MonoBehaviour
     float hiz = 2f;
     bool sag;
     bool sol;
-    float ziplamahizi = 5f;
+    float ziplamahizi = 4f;
     Rigidbody rigi;
+    Animator anim;
 
 
     private void Start()
     {
         rigi = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
     }
     private void OnCollisionStay(Collision collision)  //Çarpýþma devam ediyorken
     {
@@ -43,21 +45,21 @@ public class playerController : MonoBehaviour
         {
             Touch parmak = Input.GetTouch(0);
 
-            if(parmak.deltaPosition.x > 50.0f)
+            if(parmak.deltaPosition.x > 100.0f)
             {
                 sag = true;
                 sol = false;
             }
-            if (parmak.deltaPosition.x < -50.0f)
+            if (parmak.deltaPosition.x < -100.0f)
             {
                 sag = false;
                 sol = true;
             }
-            //if (parmak.deltaPosition.y > 50.0f)
-            //{
-            //    rigi.velocity = Vector3.zero;
-            //    rigi.velocity = Vector3.up * ziplamahizi;
-            //}
+            if (parmak.deltaPosition.y > 100.0f)
+            {
+                rigi.velocity = Vector3.zero;
+                rigi.velocity = Vector3.up * ziplamahizi;
+            }
             if (sag==true)
             {
                 transform.position = Vector3.Lerp(transform.position, saggit, Time.deltaTime*hiz);
@@ -71,11 +73,14 @@ public class playerController : MonoBehaviour
     }
     public void Ziplabtn()
     {
-       
-            rigi.velocity = Vector3.zero; // Her zaman eþit bir þekilde zýplamasýný saðlar.
-            rigi.velocity = Vector3.up * ziplamahizi *Time.deltaTime ;
-        
-       
+        if(zipladi ==false)
+        {
+            anim.SetTrigger("ziplama");
+            rigi.velocity = Vector3.zero; //Her zaman eþit bir þekilde zýplamasýný saðlar.
+            rigi.velocity = Vector3.up * ziplamahizi; // Zýplarken Time.delta.Time kullanýlmaz.
+           
+        }
+   
     }
 
 
