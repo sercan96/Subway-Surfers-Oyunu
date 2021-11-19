@@ -18,6 +18,8 @@ public class yok_ol : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+        
+        
     }
 
 }
