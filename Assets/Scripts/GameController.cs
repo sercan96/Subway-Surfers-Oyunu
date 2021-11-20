@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -21,10 +22,12 @@ public class GameController : MonoBehaviour
 
     int altinPuan;
 
-    public TextMesh puanText;
+    public TMPro.TextMeshProUGUI puanText;  // TMP eriþmek için bunu kullanýyoruz
 
 
     playerController playerC;
+
+    public GameObject oyun_durdurma_paneli;
 
 
     private void Start()
@@ -42,7 +45,7 @@ public class GameController : MonoBehaviour
         uretme(kutuk, 3, digerleri);
 
         InvokeRepeating("altin_uret", 0.0f, 1.0f); // 1-Hangi fonksiyon, 2- Ne zaman çalýþacak,3- Kaç saniyede bir çalýþacak.
-        InvokeRepeating("engel_uret", 1f, 3f);
+        InvokeRepeating("engel_uret", 1.5f, 3.0f);  // 1.5f dediði þey ayný anda ayný yerde objelerin üretilmemesi
 
         playerC = GameObject.Find("cocuk").GetComponent<playerController>();
 
@@ -73,6 +76,15 @@ public class GameController : MonoBehaviour
                 }
             }
 
+            if (digerleri[rast].name == "Miknatis(Clone)")
+            {
+                digerleri[rast].transform.position = new Vector3(-1.97f, 0.53f, cocuk.position.z + 10f);
+            }
+            if(digerleri[rast].name == "araba(Clone")
+            {
+                digerleri[rast].transform.position = new Vector3(-1.97f, 0.2f, cocuk.position.z + 10f);
+            }
+
             return;
         }
         else  // Olaki çýkan sayýlardan biri daha öncede çýkmýþtýr ve görünür haldedir. Eðer öyleyse yani else;
@@ -99,6 +111,10 @@ public class GameController : MonoBehaviour
                             miknatis.gameObject.SetActive(false);
                             
                         }
+                    }
+                    if(nesne.name =="Miknatis(Clone)")
+                    {
+                        nesne.transform.position = new Vector3(-1.97f, 0.53f, cocuk.position.z + 10f);
                     }
 
 
@@ -153,6 +169,29 @@ public class GameController : MonoBehaviour
     {
         altinPuan += 10;
         puanText.text = "SKOR : " + altinPuan;
+    }
+    
+    public void tekrarOyna()
+    {
+        SceneManager.LoadScene("oyun");
+        Time.timeScale = 1.0f; // oyun baþlasýn.
+    }
+
+    public void oyundanCik()
+    {
+        Application.Quit();
+    }
+
+    public void DevamEt()
+    {
+        oyun_durdurma_paneli.SetActive(false);
+
+        Time.timeScale = 1.0f;
+    }
+    public void oyunDurdur()
+    {
+        oyun_durdurma_paneli.SetActive(true);
+        Time.timeScale = 0.0f;
     }
 }
 

@@ -16,6 +16,7 @@ public class playerController : MonoBehaviour
     Transform yol_2;
     GameController gameC;
     public bool miknatis_alindi = false;
+    public GameObject oyun_bitti_paneli;
 
 
     private void Start()
@@ -54,20 +55,20 @@ public class playerController : MonoBehaviour
         {
             Touch parmak = Input.GetTouch(0);
 
-            if(parmak.deltaPosition.x > 100.0f)
+            if(parmak.deltaPosition.x > 50.0f)
             {
                 sag = true;
                 sol = false;
             }
-            if (parmak.deltaPosition.x < -100.0f)
+            if (parmak.deltaPosition.x < -50.0f)
             {
                 sag = false;
                 sol = true;
             }
-            if (parmak.deltaPosition.y > 100.0f)
+            if (parmak.deltaPosition.y > 50.0f)
             {
                 rigi.velocity = Vector3.zero;
-                rigi.velocity = Vector3.up * ziplamahizi;
+                rigi.velocity = Vector3.up * ziplamahizi *2f;
             }
             if (sag==true)
             {
@@ -121,8 +122,16 @@ public class playerController : MonoBehaviour
     {
         miknatis_alindi = false;
     }
-        
-        
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("engel"))
+        {
+            oyun_bitti_paneli.SetActive(true);
+            Time.timeScale = 0.0f; // Oyunu durdur.
+        }
+    }
+
 
 
 

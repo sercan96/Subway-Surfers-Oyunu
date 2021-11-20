@@ -13,13 +13,20 @@ public class yok_ol : MonoBehaviour
     }
     void Update()
     {
-        float mesafe = Vector3.Distance(transform.position, cocuk.position);
-        if(mesafe <= 0)
+        if (transform.position.z < (cocuk.position.z - 5.0f))
         {
             gameObject.SetActive(false);
         }
-        
-        
+
+
+
+        //float mesafe = Vector3.Distance(transform.position, cocuk.position);
+        //if(mesafe <= 0)
+        //{
+        //    gameObject.SetActive(false);
+        //}
+
+
     }
 
 }
