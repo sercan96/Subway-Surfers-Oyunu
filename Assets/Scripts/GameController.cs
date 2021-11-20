@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    
+
     public GameObject altin;
 
     public GameObject miknatis;
@@ -18,7 +20,9 @@ public class GameController : MonoBehaviour
     Transform cocuk;
 
     int altinPuan;
-    public Text altinpuanText;
+
+    public TextMesh puanText;
+
 
     playerController playerC;
 
@@ -148,7 +152,7 @@ public class GameController : MonoBehaviour
     public void puanArttir()
     {
         altinPuan += 10;
-        altinpuanText.text = "Puan : " + altinPuan;
+        puanText.text = "SKOR : " + altinPuan;
     }
 }
 
