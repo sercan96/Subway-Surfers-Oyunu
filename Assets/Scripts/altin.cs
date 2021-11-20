@@ -19,7 +19,7 @@ public class altin : MonoBehaviour
         if (playerC.miknatis_alindi == true)
         {
       
-            if(mesafe < 3.0f)
+            if(mesafe < 5.0f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, cocuk.position, Time.deltaTime * 5f);
             }
