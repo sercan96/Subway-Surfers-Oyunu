@@ -18,6 +18,9 @@ public class playerController : MonoBehaviour
     public bool miknatis_alindi = false;
     public GameObject oyun_bitti_paneli;
 
+    public int desiredLane = 1;
+    public float laneDistance = 2.5f;
+
 
     private void Start()
     {
@@ -49,37 +52,33 @@ public class playerController : MonoBehaviour
     private void Update()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * hiz);
-        Vector3 saggit = new Vector3(1f, transform.position.y, transform.position.z); // Sað 1 kadar gidebilsin
-        Vector3 solgit = new Vector3(-2.35f, transform.position.y, transform.position.z); // Sol -2.35 kadar gidebilsin.
-        if (Input.touchCount > 0)
-        {
-            Touch parmak = Input.GetTouch(0);
+        SetLane();
+        //if (Input.touchCount > 0)
+        //{
+        //    Touch parmak = Input.GetTouch(0);
 
-            if(parmak.deltaPosition.x > 50.0f)
-            {
-                sag = true;
-                sol = false;
-            }
-            if (parmak.deltaPosition.x < -50.0f)
-            {
-                sag = false;
-                sol = true;
-            }
-            if (parmak.deltaPosition.y > 50.0f)
-            {
-                rigi.velocity = Vector3.zero;
-                rigi.velocity = Vector3.up * ziplamahizi *2f;
-            }
-            if (sag==true)
-            {
-                transform.position = Vector3.Lerp(transform.position, saggit, Time.deltaTime*hiz);
-            }
-            if (sol == true)
-            {
-                transform.position = Vector3.Lerp(transform.position, solgit, Time.deltaTime *hiz);
-            }
-        }
+        //    if(parmak.deltaPosition.x > 50.0f)
+        //    {
+        //        sag = true;
+        //        sol = false;
+        //    }
+        //    if (parmak.deltaPosition.x < -50.0f)
+        //    {
+        //        sag = false;
+        //        sol = true;
+        //    }
+        //    if (parmak.deltaPosition.y > 50.0f)
+        //    {
+        //        rigi.velocity = Vector3.zero;
+        //        rigi.velocity = Vector3.up * ziplamahizi ;
+        //    }
 
+        //}
+
+    }
+    private void FixedUpdate()
+    {
+        ChangeLane();
     }
     public void Ziplabtn()
     {
@@ -132,11 +131,29 @@ public class playerController : MonoBehaviour
         }
     }
 
+    public void ChangeLane()
+    {
+        Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
 
+        if (desiredLane == 0) targetPosition += Vector3.left * laneDistance;
+        else if (desiredLane == 2) targetPosition += Vector3.right * laneDistance;
 
+        transform.position = Vector3.Lerp(transform.position, targetPosition, 10 * Time.deltaTime);
+    }
 
-
-
+    private void SetLane()
+    {
+        if (SwipeManager.swipeRight)
+        {
+            desiredLane++;
+            if (desiredLane == 3) desiredLane = 2;
+        }
+        if (SwipeManager.swipeLeft)
+        {
+            desiredLane--;
+            if (desiredLane == -1) desiredLane = 0;
+        }
+    }
 
 
     //public void KarakterHareket()
